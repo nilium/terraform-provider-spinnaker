@@ -31,14 +31,29 @@ resource "spinnaker_pipeline" "terraform_example" {
 
 #### Build from Source
 
-_Requires Go and [Dep](https://github.com/golang/dep#installation) be installed on the system._
+_Requires Go 1.11 or later (for Go modules) be installed on the system._
 
-```
-$ go get github.com/armory-io/terraform-provider-spinnaker
-$ cd $GOPATH/src/github.com/armory-io/terraform-provider-spinnaker
-$ dep ensure
-$ go build
-```
+1. Clone the repository. If you clone it into the _GOPATH_, it won't use Go modules unless you set the `GO111MODULE` environment variable to `on`.
+
+    ```
+    $ git clone https://github.com/armory-io/terraform-provider-spinnaker
+    $ cd terraform-provider-spinnaker
+    ```
+
+2. _Optionally_, verify the package's dependencies:
+
+    ```
+    $ go mod verify
+    all modules verified
+    ```
+
+If modules fail to verify, stop and determine what's changed. Please file an issue if a dependency's checksum has changed.
+
+3. Build the program:
+
+    ```
+    $ go build
+    ```
 
 #### Installing 3rd Party Plugins
 
